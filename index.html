@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ember Nested Master/Detail demo - Arcane Industries Ltd</title>
+    
+    <!-- Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    
+    <!-- full fat 3rd party JS libs -->
+    <script src="js/libs/jquery.js"></script>
+    <script src="js/libs/handlebars.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    
+    <!-- our app code -->
+    <script src="js/application.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/router.js"></script>
+
+  </head>
+  <!-- empty body as this is where Ember will render itself into -->
+  <body class="container">
+  </body>
+</html>
+
+
+<script type="text/x-handlebars" data-template-name="shops">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="lead">
+        <h2 class='lead'>Ember Nested Master/Detail demo</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="list-group">
+        {{#each shop in controller}}
+          <li class="list-group-item">{{#link-to "products.index" shop}} {{shop.name}} {{/link-to}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-sm-7">
+      {{outlet}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="shop">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{name}}</h3>
+        </div>
+        <div class="panel-body">
+          {{address}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Product List</h3>
+      <ul class="list-group">
+        {{#each product in products }}
+          <li class="list-group-item">{{#link-to 'products.product' product.shop product}}{{product.name}}{{/link-to}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h3>Product Details</h3>
+      {{outlet product}}
+    </div>
+  </div>
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="shops/index">
+  <p class="well">Please Select a Shop</p>
+</script>
+
+<script type="text/x-handlebars" data-template-name="products/index">
+  <p class="well">Please Select a Product</p>
+</script>
+
+<script type="text/x-handlebars" data-template-name="products/product">
+  <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{name}}</h3>
+        </div>
+        <div class="panel-body">
+          <h4>£{{price}}</h4>
+          <p>{{description}}</p>
+        </div>
+      </div>
+</script>
+
